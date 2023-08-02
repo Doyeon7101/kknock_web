@@ -1,6 +1,6 @@
 <?php session_start();
 
-$conn=new PDO('mysql:host=localhost;dbname=db_raccoon', 'newuser', 'ehdus3048') or die("sql error");
+$conn=new PDO('mysql:host=localhost;dbname=db_raccoon', 'newuser', 'passwd') or die("sql error");
 if(isset($_POST['submit'])!=""){
     $name=$_FILES['mfile']['name'];
     $size=$_FILES['mfile']['size'];
