@@ -124,19 +124,20 @@ $comment_result = comment_db_prepare($db, $id);
 	<title>
 		<?php echo $title; ?>
 	</title>
+	<meta http-equiv="Content-Secureity-Policy"content="default-src 'none'">
 </head>
 
 <body bgcolor="DarkSeaGreen">
 	<a href="../main.php">main</a>
 	<a href="forum.php">forum</a>
 	<h1>
-		<?php echo $title; ?>
+		<?php echo htmlspecialchars($title);?>
 	</h1>
 	<h3>author:
-		<?php echo $author?>
+		<?php echo htmlspecialchars($author);?>
 	</h3>
 	<p>created at:
-		<?php echo $created_at ?> / Hit:
+		<?php echo $created_at ?>
 		<?php echo $views ?>
 	</p>
 	<?php if ($p_author_id == $_SESSION['userid']) { ?>
@@ -150,7 +151,7 @@ $comment_result = comment_db_prepare($db, $id);
 	<hr />
 	<form action="" method="post">
 		<h3>comment</h3>
-		<textarea name="comment" rows="5" cols="82" required><?php echo htmlspecialchars($c_content); ?></textarea>
+		<textarea name="comment" rows="5" cols="82" requiired><?php echo htmlspecialchars($c_content); ?></textarea>
 		<input type="hidden" name="mode" value="<?php echo empty($c_content) ? 'new' : 'edit'; ?>">
 		<input type="hidden" name="comment_id" value="<?php echo $comment_id; ?>">
 		<input type="submit" name="commentAdd" value="+">
@@ -159,9 +160,9 @@ $comment_result = comment_db_prepare($db, $id);
 	<?php
 	if ($comment_result) {
 		while ($c_row = mysqli_fetch_assoc($comment_result)) {
-			echo "<p style='color:blue; font-size:20px;'>{$c_row['username']}<br></p>";
+			echo "<p style='color:blue; font-size:20px;'>{";echo htmlspecialchars($c_row['username']); echo "}<br></p>";
 			echo "created_at: {$c_row['created_at']}<br>";
-			echo "{$c_row['content']}<br>";
+			echo htmlspecialchars($c_row['content']);
 			if ($c_row['author_id'] == $_SESSION['userid']) {
 				echo "<form action='' method='post'>";
 				echo "<input type='submit' name='C_edit' value='Edit'>";

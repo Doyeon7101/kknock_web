@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 		<meta charset="UTF-8">
 		<meta name="viewport">
 		<title>login</title>
+		<meta http-equiv="Content-Security-Policy" content="default-src 'none'">
 	</head>
 
 	<body>
@@ -54,8 +55,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 			<?php echo $error; ?>
 			username: <input type="text" placeholder="Enter your username" name="uname" required></br>
 			password: <input type="password" placeholder="Enter your password" name="pw" required></br>
-			<input type="submit" name="submit" value="submit">
-			</br></br>New to this site? <a href="./register.php">Register here!</a></br>
+			<input type="submit" name="submit" value="submit"></br>
+			</br>New to this site? <a href="./register.php">Register here!</a></br>
+			<a href="./">main</a></br>
 		</form>
 	</body>
 

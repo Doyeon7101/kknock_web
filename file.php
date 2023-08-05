@@ -1,5 +1,12 @@
 <?php session_start();
 
+if (!isset($_SESSION["userid"]) || $_SESSION["userid"] != true) {
+		echo '<script> alert("Access Denied: Please log in to access this page.");';
+		echo 'window.location.href = "../main.php";';
+		echo '</script>';
+		exit;
+}
+
 $conn=new PDO('mysql:host=localhost;dbname=db_raccoon', 'newuser', 'passwd') or die("sql error");
 if(isset($_POST['submit'])!=""){
     $name=$_FILES['mfile']['name'];
@@ -7,7 +14,12 @@ if(isset($_POST['submit'])!=""){
     $type=$_FILES['mfile']['type'];
     $temp=$_FILES['mfile']['tmp_name'];
     $fname = date("YmdHis").'_'.$name;
-    $chk = $conn->query("SELECT * FROM  file_drive where name = '$name' ")->rowCount();
+
+	 //prepared statement
+	$stmt = $conn->prepare("SELECT * FROM file_drive WHERE name = :name");
+	$stmt->execute(['name' => $name]);
+	$chk = $stmt->rowCount();
+
     if($chk){
         $i = 1;
         $c = 0;
@@ -22,10 +34,12 @@ if(isset($_POST['submit'])!=""){
             }
     }
 }
-    $move =  move_uploaded_file($temp,"uploads/".$fname);
+    $move =  move_uploaded_file($temp,"nevergonnagiveyouupnevergonnaletyoud0wn/".$fname);
     if($move){
-    $query=$conn->query("insert into file_drive (name,fname) values('$name','$fname')");
-    if($query)
+		$stmt3 = $conn->prepare("INSERT INTO file_drive (name, fname) VALUES (:name, :fname)");
+		$stmt3->execute(['name' => $name, 'fname' => $fname]);
+
+    if($stmt3)
         header("location:file.php");
     else
         die("sql error");
@@ -70,7 +84,7 @@ if(isset($_POST['submit'])!=""){
 					&nbsp;<?php echo $name ;?>
 				</td>
 				<td>
-                    <?php $path = "uploads/" . $row['fname'];?>
+                    <?php $path = "nevergonnagiveyouupnevergonnaletyoud0wn/" . $row['fname'];?>
                     <p><a href="<?="$path"?>" download><?=$name;?></a></p>
 				</td>
 			</tr>
