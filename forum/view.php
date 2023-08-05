@@ -14,9 +14,13 @@ if (empty($id)) {
 	exit;
 }
 
-$query = "SELECT post.*, users.username FROM post JOIN users ON post.author_id = users.id WHERE post.id = $id";
-$result = mysqli_query($db, $query);
+$query = "SELECT post.*, users.username FROM post JOIN users ON post.author_id = users.id WHERE post.id = ?";
+$stmt = $db->prepare($query);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 $row = mysqli_fetch_assoc($result);
+
 if (empty($row)) {
 	echo "<script>alert('Error: The requested post does not exist.')</script>";
 	echo '<script>window.location.href = "forum.php"; </script>';
