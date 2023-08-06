@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 		<meta http-equiv="Content-Security-Policy" content="default-src 'none'">
 	</head>
 
-	<body>
+	<body bgcolor="Khaki">
 		<h1>Login</h1>
 		<form action="" method="post">
 			<?php echo $error; ?>
