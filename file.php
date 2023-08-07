@@ -34,7 +34,7 @@ if(isset($_POST['submit'])!=""){
             }
     }
 }
-    $move =  move_uploaded_file($temp,"./nevergonnagiveyouupnevergonnaletyoud0wn".$fname);
+    $move =  move_uploaded_file($temp,"nevergonnagiveyouupnevergonnaletyoud0wn/".$fname);
     if($move){
 		$stmt3 = $conn->prepare("INSERT INTO file_drive (name, fname) VALUES (:name, :fname)");
 		$stmt3->execute(['name' => $name, 'fname' => $fname]);
@@ -84,7 +84,7 @@ if(isset($_POST['submit'])!=""){
 					&nbsp;<?php echo $name ;?>
 				</td>
 				<td>
-                    <?php $path = "./nevergonnagiveyouupnevergonnaletyoud0wn" . $row['fname'];?>
+                    <?php $path = "nevergonnagiveyouupnevergonnaletyoud0wn/" . $row['fname'];?>
                     <p><a href="<?="$path"?>" download><?=$name;?></a></p>
 				</td>
 			</tr>
